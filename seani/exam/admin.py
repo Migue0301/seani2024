@@ -15,3 +15,4 @@ class ExamModuleInline(admin.TabularInline):
 class ExamAdmin(admin.ModelAdmin):
     list_display = ['user', 'score', 'career']
     inlines = [ExamModuleInline]
+

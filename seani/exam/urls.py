@@ -7,5 +7,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('module/<int:m_id>/question/', views.question, name='question'),
     path('module/<int:m_id>/question/<int:q_id>/', views.question, name='question'),
-    path('create/', views.create, name='create'),
+    path('create', views.create, name='create'),
 ]

@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'library.apps.LibraryConfig',
     'career.apps.CareerConfig',
     'exam.apps.ExamConfig',
-    #'exam.apps.HomeConfig',
+    'home.apps.HomeConfig',
     #Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -136,6 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

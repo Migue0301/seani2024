@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <h1>{{ question.module }}</h1>
 {% if question.question_text %}
 <h2>{{ question.question_text }}</h2>
 {% endif %}
 {% if question.question_image.url %}
-<img src="{{ question.question_image.url }}" alt="" width="400px"</img>
+<img src="{{ question.question_image.url }}" alt="" width="400px"></img>
 {% endif %}
 
 <form action="{% url 'exam:question' m_id q_id %}" method="post">
     {% csrf_token %}
     <input type="radio" name="answer" id="ans0" value="-"
     {% if answer == '-' %}checked{% endif %}
+    style="display: none;"
+    
     >
-    <label for="ans0">Respuesta Inicial</label>
     <br>
     <input type="radio" name="answer" id="ans1" value="A"
     {% if answer == 'A' %}checked{% endif %}
@@ -43,5 +43,5 @@
     {% endif %}
     <input type="submit" value="Siguiente">
 </form>
-
-{% endblock %}  
+    
+{% endblock %}

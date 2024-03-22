@@ -8,14 +8,13 @@
 
 <ul>
 {% for module in user.exam.modules.all %}
-<li><a href="{% url 'exam:question' module.id %}">{{ module.descrption }}</a></li>
+<li><a href="{% url 'exam:question' module.id %}">{{ module.description }}</a></li>
 {% endfor %}
 </ul>
 <hr>
-
 <form action="{% url 'logout' %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Guardar">
+    <input type="submit" value="Salir">
 </form>
     
 {% endblock %}

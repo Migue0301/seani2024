@@ -62,17 +62,37 @@ class Exam(models.Model):
     updated = models.DateTimeField(
         verbose_name = "Fecha de actualización",
         auto_now_add=True)
+    
+    def compute_score_by_module(self, m_id):
+        score = 10.0
+        questions = self.breakdown_set.filter(question__module_id = m_id)
+        for question in questions:
+            if question.correct == question.answer:
+                score += 10
+        total = score / questions.count()
+        module = self.exammodule_set.get(module_id = m_id)
+        module.score = total
+        module.save()
+
+    
+    def compute_score(self):
+        score = 0.0
+        modules= self.exammodule_set.all()
+        for module in modules:
+            score += module.score
+        self.score = score / modules.count()
+        self.save()
 
     def set_modules(self):
         for module in Module.objects.all():
             self.modules.add(module)
-    
+
     def set_questions(self):
         for module in self.modules.all():
             for question in module.question_set.all():
-                #self.questions.add(question)        
+                # self.questions.add(question) 
                 Breakdown.objects.create(
-                    exam = self,
+                    exam = self, 
                     question = question,
                     correct = question.correct)
 
@@ -92,5 +112,5 @@ class ExamModule(models.Model):
 class Breakdown(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    answer = models.CharField(max_length=5, default='-')
-    correct = models.CharField(max_length=5, default='-')
+    answer = models.CharField(max_length=5, default = '-')
+    correct = models.CharField(max_length=5, default = '-')
